@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+var JANUSZ string = "TwojaStara"
+
 var (
 	a         float32 = 0.09
 	actorName string  = "Janusz Kowalski"
@@ -18,5 +20,5 @@ func main() {
 	fmt.Printf("\n")
 	fmt.Printf("%v, %T", a, a)
 	fmt.Printf("\n")
-	fmt.Printf(actorName)
+	fmt.Print(actorName)
 }
