@@ -5,14 +5,17 @@ import (
 	"strconv"
 )
 
-var JANUSZ string = "TwojaStara"
+var actorName = "John"
 
-var (
-	a         float32 = 0.09
-	actorName string  = "Janusz Kowalski"
+const (
+	_ = iota
+	a //
 )
 
 func main() {
+	const MY_CONST int = 1
+	const a int16 = 69 // shadowing nastopilo "przykrycie zmiennej a zapisanej w funkcji"
+
 	i := 42
 	var n bool = true
 	var j int8 = 27
@@ -20,41 +23,49 @@ func main() {
 	var m string = "NULL"
 	o := 1 == 2 // inicjalizacja zmiennych boolowskich
 	m = strconv.Itoa(k)
-	fmt.Println(i, j, k)
-	fmt.Printf("%v, %T", i, i)
-	fmt.Printf("\n")
-	fmt.Printf("%v, %T", a, a)
-	fmt.Printf("\n")
-	fmt.Printf("%v, %T", k, k)
-	fmt.Printf("\n")
-	fmt.Print(actorName)
-	fmt.Printf("\n")
-	fmt.Printf("%v, %T", m, m)
-	fmt.Printf("\n")
-	fmt.Print(n)
-	fmt.Printf("\n")
-	fmt.Printf("%v, %T", o, o)
-	fmt.Printf("\n")
-	fmt.Print(j + int8(k))
-	a := 10               //1010
-	b := 3                //0011
+
+	printValues(a)
+	printValues(MY_CONST)
+	printValues(i, j, k)
+	printFormattedValues(i, k)
+	fmt.Print(actorName + "\n")
+	printFormattedValues(m)
+	fmt.Print(n, "\n")
+	printFormattedValues(o)
+	printBitwiseOperations(10, 3)
+
+	// typy zespolone
+	var v complex64 = 1 + 2i
+	var z complex64 = 4 + 7i
+	printFormattedValues(v)
+	fmt.Print(v+z, "\n") // dodawanie
+	fmt.Print(v-z, "\n") // odejmowanie
+	fmt.Print(v*z, "\n") // mnożenie
+	fmt.Print(v/z, "\n") // dzielenie
+
+	// typy tekstowe string tak jak w c++
+	m = "Dupa"
+	fmt.Print(actorName + "  " + m + "  ") // konkatenacja jak w Pythonie, nie ma typu char, bo w stringu są aliasy do liter a nie chary
+}
+
+func printValues(values ...interface{}) {
+	for _, v := range values {
+		fmt.Print(v, " ")
+	}
+	fmt.Print("\n")
+}
+
+func printFormattedValues(values ...interface{}) {
+	for _, v := range values {
+		fmt.Printf("%v, %T\n", v, v)
+	}
+}
+
+func printBitwiseOperations(a, b int) {
 	fmt.Print(a&b, "\n")  // funkcja boolowska AND
 	fmt.Print(a|b, "\n")  // funkcja OR
 	fmt.Print(a^b, "\n")  // funkcja XOR
 	fmt.Print(a&^b, "\n") // funkcja NAND
-	fmt.Print(a<<1, "\n") // przesuniecie bitowe w lewo
-	fmt.Print(a>>1, "\n") // przesuniecie bitowe w prawo
-	// typy zespolone
-	var v complex64 = 1 + 2i //sa to typy float 32 a nie int 32!!!
-	var z complex64 = 4 + 7i
-	fmt.Printf("%v, %T", v, v)
-	fmt.Printf("\n")
-	fmt.Print(v+z, "\n") // dodawanie
-	fmt.Print(v-z, "\n") // odejmowanie
-	fmt.Print(v*z, "\n") // mnozenie
-	fmt.Print(v/z, "\n") // dzielenie
-	// typy tekstowe string tak jak w c++
-	m = "Dupa"
-	fmt.Print(actorName + "  " + m + "  ") //konkatynacja jak w pythonie, nie ma typu char bo w stringu sa aliasy do literek a nie chary
-
+	fmt.Print(a<<1, "\n") // przesunięcie bitowe w lewo
+	fmt.Print(a>>1, "\n") // przesunięcie bitowe w prawo
 }
