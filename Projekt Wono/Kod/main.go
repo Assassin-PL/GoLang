@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"strconv"
 )
 
@@ -22,7 +23,7 @@ type Doctor struct {
 
 // Struktura Animal reprezentuje zwierzę z informacjami o nazwie i pochodzeniu.
 type Animal struct {
-	Name   string
+	Name   string `required:"true" max:"100"` // dodawanie Tagu do struktury , taka informacja gdy deklarujemy strukture
 	Origin string
 }
 
@@ -100,6 +101,8 @@ func main() {
 	g := make([]int, 3, 100) // Trzeci argument określa maksymalną pojemność slices, a jej rozmiaru nie można później zmieniać.
 
 	// Inicjalizacja obiektu Bird (ptaszek).
+	t := reflect.TypeOf(Animal{})
+	field, _ := t.FieldByName("Name")
 	ptaszek := Bird{
 		Animal:   Animal{Name: "Twoja stara", Origin: "dupa"},
 		SpeedKPH: 69,
@@ -134,6 +137,8 @@ func main() {
 	_, ok := statePopulations["Zbąszynek"] // Sprawdzanie, czy istnieje klucz w mapie.
 
 	// Wyświetlanie wyników.
+	fmt.Println(field.Tag)
+	fmt.Print("\n")
 	fmt.Println(statePopulations)
 	fmt.Print("\n")
 	fmt.Println(ok)
