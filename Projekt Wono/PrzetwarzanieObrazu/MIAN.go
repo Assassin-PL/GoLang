@@ -16,9 +16,9 @@ import (
 
 func main() {
 	//Definicja parametrow:
-	var contrast_level float64 = 0.5    //w %
-	var sharpen_level float64 = 1       //
-	var gaussiaNoise_level float64 = 30 //
+	var contrast_level float64 = 0.5     //w %
+	var sharpen_level float64 = 1        //
+	var gaussiaNoise_level float64 = 0.1 //
 	// Definicja flag
 	imagePath := flag.String("input", "Przyklad.jpg", "Ścieżka do pliku obrazu")
 	sharpen := flag.Bool("sharpen", true, "Wyostrzanie obrazu")
@@ -98,19 +98,20 @@ func applyGaussianNoise(img image.Image, level float64) image.Image {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			originalColor := img.At(x, y)
 
-			// Dodajemy szum gaussowski do każdego kanału koloru (R, G, B)
-			r, g, b, _ := originalColor.RGBA()
+			// Konwersja do koloru RGBA (który jest implementacją interfejsu color.Color)
+			originalRGBA := color.RGBAModel.Convert(originalColor).(color.RGBA)
 
-			noisyR := addGaussianNoise(float64(r), level)
-			noisyG := addGaussianNoise(float64(g), level)
-			noisyB := addGaussianNoise(float64(b), level)
+			// Dodajemy szum gaussowski do każdego kanału koloru (R, G, B)
+			noisyR := addGaussianNoise(float64(originalRGBA.R), level)
+			noisyG := addGaussianNoise(float64(originalRGBA.G), level)
+			noisyB := addGaussianNoise(float64(originalRGBA.B), level)
 
 			// Ustawiamy nowy kolor z dodanym szumem
 			noisyColor := color.RGBA{
 				R: uint8(noisyR),
 				G: uint8(noisyG),
 				B: uint8(noisyB),
-				A: 255,
+				A: originalRGBA.A,
 			}
 
 			// Ustawiamy nowy kolor w kopii obrazu
