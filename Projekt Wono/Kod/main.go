@@ -4,6 +4,10 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
 )
 
 // Zmienna globalna reprezentująca nazwisko postaci.
@@ -180,6 +184,18 @@ func main() {
 	fmt.Print("\n")
 	fmt.Println(aDoctor.actorName)
 	fmt.Print("\n")
+	app := app.New()
+	w := app.NewWindow("Hello")
+
+	hello := widget.NewLabel("Hello Fyne!")
+	w.SetContent(container.NewVBox(
+		hello,
+		widget.NewButton("Hi!", func() {
+			hello.SetText("Welcome :)")
+		}),
+	))
+
+	w.ShowAndRun()
 }
 
 // Funkcja do wyświetlania wartości.
