@@ -1,8 +1,6 @@
-module ProjektWNO
+module NaukaGo
 
 go 1.21.4
-
-require github.com/disintegration/imaging v1.6.2
 
 require (
 	fyne.io/systray v1.10.1-0.20230722100817-88df1e0ffa9a // indirect
