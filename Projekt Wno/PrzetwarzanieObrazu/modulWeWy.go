@@ -12,10 +12,10 @@ import (
 // wczytywanie obrazka
 func loadAndProcessImage(imagePath string) image.Image {
 	fullPath := filepath.Join("Obrazy", imagePath)
-	file, err := os.Open(fullPath)
+	file, err := os.Open(fullPath) // funkcja zwrocila blad nie mozna wykonac, sprawdzam tu poprawnosc zapisu pliku
 	if err != nil {
 		fmt.Println("Błąd podczas otwierania pliku obrazu:", err)
-		os.Exit(1)
+		os.Exit(1) // uzylem tej funkcji dla tego ze jesli bedzie napotkany blad to spowoduje natychmiastowe zamkniecie systemu zeby nie uszkodzic obrazu zrodlowego
 	}
 	defer file.Close()
 
@@ -25,14 +25,14 @@ func loadAndProcessImage(imagePath string) image.Image {
 		os.Exit(1)
 	}
 
-	return img
+	return img // funkcja nie zwraca kopii tylko operuje na obrazie wiec trzeba uwazac przy kazdej zmianie tej zmiennej bo ma wplywa na orginal
 }
 
 // blok zapisu do pliku
 func saveImage(img image.Image, outputPath string) {
 	fullPath := filepath.Join("Przetworzone Obrazy", outputPath)
 	file, err := os.Create(fullPath)
-	if err != nil { // funkcja zwrocila blad nie mozna wykonac
+	if err != nil { // funkcja zwrocila blad nie mozna wykonac, sprawdzam tu poprawnosc zapisu pliku
 		fmt.Println("Błąd podczas tworzenia pliku wyjściowego:", err)
 		os.Exit(1)
 	}

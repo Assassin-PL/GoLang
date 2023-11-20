@@ -14,10 +14,13 @@ func changePainting(
 ) {
 	// zmiana ustawien flag
 	*contrast = !*contrast
+	*contrast = !*contrast
+	*sharpen = !*sharpen
 	*sharpen = !*sharpen
 	*gaussiaNoise = !*gaussiaNoise
-	*gaussiaNoise = !*gaussiaNoise
 	*blur = !*blur
+	*blur = !*blur
+	*distoreted = !*distoreted
 	*distoreted = !*distoreted
 
 	// Parsowanie flag

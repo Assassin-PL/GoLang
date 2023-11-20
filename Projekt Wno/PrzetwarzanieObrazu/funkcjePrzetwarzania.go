@@ -4,15 +4,15 @@ import (
 	"image"
 	"image/color"
 	_ "image/png"
-	"math"
-	"math/rand"
+	"math"      // biblioteka uzyta do funkci dodania szumu Gausowskiego
+	"math/rand" // biblioteka uzyta do funkci dodania szumu Gausowskiego
 
-	"github.com/disintegration/imaging"
+	"github.com/disintegration/imaging" // uzywalem tej bibioteki do operacji na obrazie , blur contrast itp.
 )
 
-// bloki funkcji filtrow
+// bloki funkcji filtrow - sugerowalem sie funkcjami przetwarzania z dokumentacji programu photoshop
 func applySharpening(img image.Image, level float64) image.Image {
-	// Przykładowe wyostrzanie obrazu o 10%
+	// Przykładowe wyostrzanie obrazu
 	sharpenedImage := imaging.Sharpen(img, level)
 
 	return sharpenedImage
@@ -26,7 +26,7 @@ func applyContrastEnhancement(img image.Image, level float64) image.Image {
 }
 
 func applyGaussianBlur(img image.Image, sigma float64) image.Image {
-	// Zastosuj rozmycie gaussowskie
+	// Zastosowanie rozmycia gaussowskiego
 	blurredImage := imaging.Blur(img, sigma)
 
 	return blurredImage
@@ -36,7 +36,7 @@ func applyGaussianNoise(img image.Image, level float64) image.Image {
 	bounds := img.Bounds()
 	noisyImage := imaging.Clone(img) // Tworzymy kopię obrazu, aby nie zmieniać oryginału
 
-	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+	for y := bounds.Min.Y; y < bounds.Max.Y; y++ { // petla w ktorej wybierany dany piskel z listy i zmieniamy jego wlasnosci (struktura "data" posiada tablice 2D wiec jest x i y)
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			originalColor := img.At(x, y)
 
@@ -64,7 +64,7 @@ func applyGaussianNoise(img image.Image, level float64) image.Image {
 	return noisyImage
 }
 
-func addGaussianNoise(value float64, level float64) float64 {
+func addGaussianNoise(value float64, level float64) float64 { // funkcja zwraca kolor z orginalu zwiekszony / zmniejszony o szum z rozkladu normalnego, dlatego tu uzylem biblioteke math
 	// Dodajemy szum gaussowski do wartości koloru
 	noise := rand.NormFloat64() * level
 	noisyValue := value + noise
