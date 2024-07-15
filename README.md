@@ -15,7 +15,7 @@ Ten projekt to aplikacja do przetwarzania obrazów napisana w języku Go. Aplika
 ## Instalacja
 1. Sklonuj repozytorium:
     ```sh
-    git clone https://gitlab.com/your-username/your-repository.git
+    git clone https://github.com/Assassin-PL/GoLang.git
     ```
 2. Przejdź do katalogu projektu:
     ```sh
